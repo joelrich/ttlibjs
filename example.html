@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="ttlib.js"></script>
+</head>
+<body>
+
+</body>
+<script>
+
+    function list(values) {
+        function add(e) {
+            values.push({num: values.length});
+            tt.update(list, [values], e);
+        }
+
+        return tt`
+            <ul>
+                ${values.map(listItem)}
+            </ul>
+            <button onclick="${add}">add</button>
+        `;
+    }
+
+    function listItem(item) {
+        function increment(e) {
+            item.num++;
+            tt.update(listItem, [item], e);
+        }
+
+        return tt`
+            <li onclick="${increment}">${item.num} and ${item.num + 1}</li>
+        `;
+    }
+
+    var node = list([]);
+    document.body.appendChild(node);
+
+</script>
+</html>
